@@ -1,5 +1,15 @@
 var connnection = require("../config/connection");
 
+function createQmarks(num){
+    var arr = [];
+
+    for (var i = 0; i < num; i++) {
+        arr.push("?");
+      }
+    
+      return arr.toString();
+}
+
 var orm = {
     all: function(tableInput, cb) {
         var queryString = "SELECT * FROM " + tableInput + ";";
@@ -9,7 +19,7 @@ var orm = {
           }
           cb(result);
         });
-      },
+    },
 
     create: function(table, cols, vals, cb) {
         var queryString = "INSERT INTO " + table;
@@ -30,7 +40,7 @@ var orm = {
     
           cb(result);
         });
-      },
+    },
     
     update: function(table, objColVals, condition, cb) {
         var queryString = "UPDATE " + table;
@@ -49,4 +59,18 @@ var orm = {
         cb(result);
     });
 },
-}
+
+    delete: function(table, condition, cb) {
+        var queryString = "DELETE FROM " + table;
+        queryString += " WHERE ";
+        queryString += condition;
+
+        connection.query(queryString, function(err, result) {
+        if (err) {
+            throw err;
+        }
+
+        cb(result);
+        });
+    },
+};
