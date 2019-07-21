@@ -10,6 +10,24 @@ function createQmarks(num){
       return arr.toString();
 }
 
+function objToSql(obj) {
+    var arr = [];
+  
+    for (var key in obj) {
+      var value = obj[key];
+      
+      if (Object.hasOwnProperty.call(obj, key)) {
+      
+        if (typeof value === "string" && value.indexOf(" ") >= 0) {
+          value = "'" + value + "'";
+        }
+        arr.push(key + "=" + value);
+      }
+    }
+  
+    return arr.toString();
+  }
+
 var orm = {
     all: function(tableInput, cb) {
         var queryString = "SELECT * FROM " + tableInput + ";";
@@ -28,7 +46,7 @@ var orm = {
         queryString += cols.toString();
         queryString += ") ";
         queryString += "VALUES (";
-        queryString += printQuestionMarks(vals.length);
+        queryString += createQmarks(vals.length);
         queryString += ") ";
     
         console.log(queryString);
