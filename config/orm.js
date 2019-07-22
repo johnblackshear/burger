@@ -1,4 +1,4 @@
-var connnection = require("../config/connection");
+var connection = require("../config/connection");
 
 function createQmarks(num){
     var arr = [];
