@@ -3,10 +3,10 @@ $(function(){
     event.preventDefault();
 
     var newBurger = {
-      burger_name: $("#is_eaten")
+      burger_name: $("#ca")
       .val()
       .trim(),
-      devoured: 0
+      devoured: $("[name=devoured]:checked").val().trim()
 
     };
 
@@ -28,7 +28,7 @@ $(function(){
     var devouredState ={
       devoured: 1
     };
-    $.ajax("/api/burgers" + id,{
+    $.ajax("/api/burgers/" + id,{
       type: "PUT",
       data: devouredState
     }).then(function(){
@@ -42,9 +42,14 @@ $(function(){
 
     var id = $(this).data("id");
 
-    $.ajax({
+    $.ajax("/api/burgers/" + id,{
       type: "DELETE",
-      url: "/api/burgers" + id
-    }).then(location.reload());
+    }).then(
+      function() {
+        console.log("deleted cat", id);
+        // Reload the page to get the updated list
+        location.reload();
+      }
+    );
   });
 });
