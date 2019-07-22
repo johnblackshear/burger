@@ -2,29 +2,20 @@
 <h2>burgers that are not is_eaten!</h2>
 <ul>
   {{#each burgers}}
-    {{#unless is_eaten}}
-      {{> burgers/burger-block }}
+    {{#unless devoured}}
+      <span><strong>{{this.id}} - {{this.burger_name}}</strong></span>
+      <button type="button" class="eat_burger" id ="eat_button" data-id="{{this.id}}" data-newDevoured="{{devoured}}"></button>
     {{/unless}}
   {{/each}}
 </ul>
-<h2>burgers that are is_eaten!</h2>
-<ul>
-  {{#each burgers}}
-    {{#if is_eaten}}
-      {{> burgers/burger-block}}
-    {{/if}}
-  {{/each}}
-</ul>
-<h2>Add a burger</h2>
+
 <form class="create-form">
   <div class="form-group">
-    <label for="ca">burger Name:</label>
-    <input type="text" id="ca" name="name">
+    <label for="newburger">burger Name:</label>
+    <input type="text" id="newburger" name="burger">
   </div>
   <div class="form-group">
     <label for="is_eaten">is_eaten?</label><br>
-    <input type="radio" name="is_eaten" value="1" checked> is_eaten!<br>
-    <input type="radio" name="is_eaten" value="0"> Awake
   </div>
-  <button type="submit">Add burger</button>
+  <button type="submit" id="addburger">Add burger</button>
 </form>
